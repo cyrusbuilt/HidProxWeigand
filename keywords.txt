@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map for CrashMonitor
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+HidProxWeigand  KEYWORD1
+ProxReaderInfo  KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+addReader   KEYWORD2
+getCurrentReader    KEYWORD2
+loop    KEYWORD2
+ISR_Data0   KEYWORD2
+ISR_Data1   KEYWORD2
+HidProxWeigand_AttachReaderInterrupts   KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+MAX_READ_BITS   LITERAL1
+WEIGAND_WAIT_TIME   LITERAL1
+CARD_FORMAT_CORPORATE_1000  LITERAL1
+CARD_FORMAT_WEIGAND_26  LITERAL1
+SUPPORTED_READERS   LITERAL1

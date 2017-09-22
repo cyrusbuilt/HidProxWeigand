@@ -1,0 +1,22 @@
+{
+  "name": "HidProxWeigand",
+  "keywords": "rfid, proximity, reader, fob",
+  "description": "An interrupt-driven HID proximity RFID reader library that supports 35bit Corporate 1000 format and 26bit weigand format.",
+  "authors": [
+    {
+      "name": "Cyrus Brunner",
+      "email": "cyrusbuilt@gmail.com",
+      "url": "http://cyrusbuilt.net",
+      "maintainer": true
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cyrusbuilt/HidProxWeigand.git"
+  },
+  "version": "1.0.0",
+  "license": "GPL-3.0",
+  "downloadUrl": "",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
