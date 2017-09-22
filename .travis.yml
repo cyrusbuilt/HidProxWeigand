@@ -9,8 +9,8 @@ cache:
         - "~/.platformio"
 
 env:
-    - PLATFORM_CI_SRC=examples/BasicExample
-    - PLATFORM_CI_SRC=examples/AdvancedExample
+    - PLATFORMIO_CI_SRC=examples/BasicExample
+    - PLATFORMIO_CI_SRC=examples/AdvancedExample
 
 install:
     - pip install -U platformio
