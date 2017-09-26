@@ -142,7 +142,8 @@ public:
      * @param pinData1 The DATA1 pin from the reader.
      * @param onCardRead Callback method that fires when a card is read.
      * @return A reference to a ProxReaderInfo representing the reader
-     * that was added.
+     * that was added. Returns NULL if the reader could not be added due to
+     * platform limitation.
      */
     ProxReaderInfo* addReader(short pinData0, short pinData1, void (*onCardRead)(ProxReaderInfo* reader));
 

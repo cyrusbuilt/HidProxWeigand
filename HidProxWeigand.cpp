@@ -122,7 +122,7 @@ void HidProxWeigandClass::loop() {
                 this->_currentReader->facilityCode |= this->_currentReader->databits[i];
             }
 
-            // Card the card code.
+            // Get the card code.
             for (i = cardStartBit; i < cardStopBit; i++) {
                 this->_currentReader->cardCode <<= 1;
                 this->_currentReader->cardCode |= this->_currentReader->databits[i];
