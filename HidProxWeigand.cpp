@@ -118,9 +118,9 @@ void HidProxWeigandClass::loop() {
                 // TODO add support for more card formats.
             }
 
+            uint8_t i = 0;
             if (!unsupported) {
                 // Get the facility code.
-                uint8_t i = 0;
                 for (i = facStartBit; i < facStopBit; i++) {
                     this->_currentReader->facilityCode <<= 1;
                     this->_currentReader->facilityCode |= this->_currentReader->databits[i];
