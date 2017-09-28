@@ -124,7 +124,7 @@ struct ProxReaderInfo {
     ProxReaderInfo() {
         onCardRead = NULL;
         flagDone = false;
-        unsupported = false;
+        cardUnsupported = false;
         facilityCode = 0;
         cardCode = 0;
         bitCount = 0;
