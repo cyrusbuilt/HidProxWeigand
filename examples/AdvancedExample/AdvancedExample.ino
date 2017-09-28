@@ -26,7 +26,7 @@
  #define PIN_RDR2_RED_LED 11
 
  ProxReaderInfo* reader1;   // Card reader 1.
- ProxReaderInfo* reader2;
+ ProxReaderInfo* reader2;   // Card reader 2.
 
  // Callback for handling card reads from reader 1.
  void cardRead1Handler(ProxReaderInfo* reader) {
