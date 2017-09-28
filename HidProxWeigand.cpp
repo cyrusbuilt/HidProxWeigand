@@ -84,7 +84,8 @@ void HidProxWeigandClass::loop() {
             }
         }
 
-        // If we have bits and we the weigand counter went out.
+        // If we have bits and the weigand counter went out.
+        bool unsupported = false;
         if ((this->_currentReader->bitCount > 0) && (this->_currentReader->flagDone)) {
             uint8_t facStartBit = 0;
             uint8_t facStopBit = 0;
@@ -112,23 +113,28 @@ void HidProxWeigandClass::loop() {
             }
             else {
                 // Unrecognized format.
-                // TODO what to do here?
+                unsupported = true;
+
+                // TODO add support for more card formats.
             }
 
-            // Get the facility code.
-            uint8_t i = 0;
-            for (i = facStartBit; i < facStopBit; i++) {
-                this->_currentReader->facilityCode <<= 1;
-                this->_currentReader->facilityCode |= this->_currentReader->databits[i];
-            }
+            if (!unsupported) {
+                // Get the facility code.
+                uint8_t i = 0;
+                for (i = facStartBit; i < facStopBit; i++) {
+                    this->_currentReader->facilityCode <<= 1;
+                    this->_currentReader->facilityCode |= this->_currentReader->databits[i];
+                }
 
-            // Get the card code.
-            for (i = cardStartBit; i < cardStopBit; i++) {
-                this->_currentReader->cardCode <<= 1;
-                this->_currentReader->cardCode |= this->_currentReader->databits[i];
+                // Get the card code.
+                for (i = cardStartBit; i < cardStopBit; i++) {
+                    this->_currentReader->cardCode <<= 1;
+                    this->_currentReader->cardCode |= this->_currentReader->databits[i];
+                }
             }
 
             // Fire the event if we have a handler callback.
+            this->_currentReader->cardUnsupported = unsupported;
             if (this->_currentReader->onCardRead != NULL) {
                 this->_currentReader->onCardRead(this->_currentReader);
             }

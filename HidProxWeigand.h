@@ -65,6 +65,11 @@ struct ProxReaderInfo {
     bool flagDone;
 
     /**
+     * Flag to indicate that the card read is of an unsupported format.
+     */
+    bool cardUnsupported;
+
+    /**
      * The facility code. Will be zero unless a valid code is read.
      */
     unsigned long facilityCode;
@@ -119,6 +124,7 @@ struct ProxReaderInfo {
     ProxReaderInfo() {
         onCardRead = NULL;
         flagDone = false;
+        unsupported = false;
         facilityCode = 0;
         cardCode = 0;
         bitCount = 0;
@@ -127,7 +133,8 @@ struct ProxReaderInfo {
 };
 
 /**
- * [HidProxWeigandClass description]
+ * HID card reader manager class. Provides facilities for adding card readers
+ * and processing card reads.
  */
 class HidProxWeigandClass {
 public:
