@@ -115,7 +115,7 @@ void loop() {
 
 ## How to install
 
-If you are using PlatformIO (http://platformio.org/), you can simply run the
+If you are using PlatformIO (https://platformio.org/), you can simply run the
 following command:
 ```
 platformio lib install HidProxWeigand
