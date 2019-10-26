@@ -1,9 +1,9 @@
 /*
-    Advanced HidProxWeigand usage example.
+    Advanced HidProxWiegand usage example.
  */
 
  #include <Arduino.h>
- #include "HidProxWeigand.h"
+ #include "HidProxWiegand.h"
 
  #define RDR_INT0 0         // Reader 1 interrupt for DATA 0.
  #define RDR_INT1 1         // Reader 1 interrupt for DATA 1.
@@ -100,12 +100,12 @@
      }
 
      // Create the readers and attach them to the system.
-     reader1 = HidProxWeigand.addReader(PIN_RDR1_DATA0, PIN_RDR1_DATA1, cardRead1Handler);
-     reader2 = HidProxWeigand.addReader(PIN_RDR2_DATA0, PIN_RDR2_DATA1, cardRead2Handler);
+     reader1 = HidProxWiegand.addReader(PIN_RDR1_DATA0, PIN_RDR1_DATA1, cardRead1Handler);
+     reader2 = HidProxWiegand.addReader(PIN_RDR2_DATA0, PIN_RDR2_DATA1, cardRead2Handler);
 
      // Attach interrupt handlers for readers 1 and 2.
-     HidProxWeigand_AttachReaderInterrupts(RDR_INT0, RDR_INT1, handleInterrupt0, handleInterrupt1);
-     HidProxWeigand_AttachReaderInterrupts(RDR_INT2, RDR_INT3, handleInterrupt2, handleInterrupt3);
+     HidProxWiegand_AttachReaderInterrupts(RDR_INT0, RDR_INT1, handleInterrupt0, handleInterrupt1);
+     HidProxWiegand_AttachReaderInterrupts(RDR_INT2, RDR_INT3, handleInterrupt2, handleInterrupt3);
 
      // Init reader 1 outputs.
      pinMode(PIN_RDR1_BUZZER, OUTPUT);
@@ -126,5 +126,5 @@
 
  void loop() {
      // Process any cards that have been read.
-     HidProxWeigand.loop();
+     HidProxWiegand.loop();
  }
