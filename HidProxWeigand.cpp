@@ -112,7 +112,7 @@ void HidProxWeigandClass::loop() {
                 cardStartBit = 9;
                 cardStopBit = 25;
             }
-			else if (this->_currentReader->bitCount == CARD_FORMAT_WEIGAND_32) {
+            else if (this->_currentReader->bitCount == CARD_FORMAT_WEIGAND_32) {
                 // Standard 32bit weigand format.
                 // Facility code is bits 5 to 16.
                 facStartBit = 4;
