@@ -1,11 +1,12 @@
 /**
  * HidProxWeigand.h
- * Version 1.0a
+ * Version 1.0b
  * Author
  *  Cyrus Brunner
+ *  Joseph Selby
  *
  * This library provides a means of reading RFID cards (fobs) in both HID 35bit
- * Corporate 1000 format and 26bit Weigand format.
+ * Corporate 1000 format, 32bit Weigand and 26bit Weigand format.
  */
 
 #ifndef HidProxWeigand_h
@@ -17,6 +18,7 @@
 #define WEIGAND_WAIT_TIME 3000        // Time to wait for another weigand pulse.
 #define CARD_FORMAT_CORPORATE_1000 35 // HID Corporate 100 card format (35bit).
 #define CARD_FORMAT_WEIGAND_26    26  // Standard 26bit Weigand format.
+#define CARD_FORMAT_WEIGAND_32    32  // Standard 32bit Weigand format.
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
     // Mega 1280 and 2560 has 6 interrupts, thus can support 3 readers.
     #define SUPPORTED_READERS 3
