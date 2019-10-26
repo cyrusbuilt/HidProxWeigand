@@ -6,7 +6,7 @@
  *  Joseph Selby
  *
  * This library provides a means of reading RFID cards (fobs) in both HID 35bit
- * Corporate 1000 format, 32bit Weigand and 26bit Weigand format.
+ * Corporate 1000 format, 32bit Wiegand and 26bit Wiegand format.
  */
 
 #include "HidProxWeigand.h"
@@ -85,7 +85,7 @@ void HidProxWeigandClass::loop() {
             }
         }
 
-        // If we have bits and the weigand counter went out.
+        // If we have bits and the Wiegand counter went out.
         bool unsupported = false;
         if ((this->_currentReader->bitCount > 0) && (this->_currentReader->flagDone)) {
             uint8_t facStartBit = 0;
@@ -103,7 +103,7 @@ void HidProxWeigandClass::loop() {
                 cardStopBit = 34;
             }
             else if (this->_currentReader->bitCount == CARD_FORMAT_WEIGAND_26) {
-                // Standard 26bit weigand format.
+                // Standard 26bit Wiegand format.
                 // Facility code is bits 2 to 9.
                 facStartBit = 1;
                 facStopBit = 9;
@@ -113,7 +113,7 @@ void HidProxWeigandClass::loop() {
                 cardStopBit = 25;
             }
             else if (this->_currentReader->bitCount == CARD_FORMAT_WEIGAND_32) {
-                // Standard 32bit weigand format.
+                // Standard 32bit Wiegand format.
                 // Facility code is bits 5 to 16.
                 facStartBit = 4;
                 facStopBit = 16;

@@ -6,7 +6,7 @@
  *  Joseph Selby
  *
  * This library provides a means of reading RFID cards (fobs) in both HID 35bit
- * Corporate 1000 format, 32bit Weigand and 26bit Weigand format.
+ * Corporate 1000 format, 32bit Wiegand and 26bit Wiegand format.
  */
 
 #ifndef HidProxWeigand_h
@@ -15,10 +15,10 @@
 #include <Arduino.h>
 
 #define MAX_READ_BITS 100             // Max number of read bits.
-#define WEIGAND_WAIT_TIME 3000        // Time to wait for another weigand pulse.
+#define WEIGAND_WAIT_TIME 3000        // Time to wait for another Wiegand pulse.
 #define CARD_FORMAT_CORPORATE_1000 35 // HID Corporate 100 card format (35bit).
-#define CARD_FORMAT_WEIGAND_26    26  // Standard 26bit Weigand format.
-#define CARD_FORMAT_WEIGAND_32    32  // Standard 32bit Weigand format.
+#define CARD_FORMAT_WEIGAND_26    26  // Standard 26bit Wiegand format.
+#define CARD_FORMAT_WEIGAND_32    32  // Standard 32bit Wiegand format.
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
     // Mega 1280 and 2560 has 6 interrupts, thus can support 3 readers.
     #define SUPPORTED_READERS 3
