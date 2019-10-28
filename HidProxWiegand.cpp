@@ -1,35 +1,36 @@
 /**
- * HidProxWeigand.cpp
- * Version 1.0a
+ * HidProxWiegand.cpp
+ * Version 1.0b
  * Author
  *  Cyrus Brunner
+ *  Joseph Selby
  *
  * This library provides a means of reading RFID cards (fobs) in both HID 35bit
- * Corporate 1000 format and 26bit Weigand format.
+ * Corporate 1000 format, 32bit Wiegand and 26bit Wiegand format.
  */
 
-#include "HidProxWeigand.h"
+#include "HidProxWiegand.h"
 
-void HidProxWeigand_AttachReaderInterrupts(uint8_t int0, uint8_t int1, void (*int0Handler)(), void (*int1Handler)()) {
+void HidProxWiegand_AttachReaderInterrupts(uint8_t int0, uint8_t int1, void (*int0Handler)(), void (*int1Handler)()) {
     attachInterrupt(int0, int0Handler, FALLING);
     attachInterrupt(int1, int1Handler, FALLING);
 }
 
-HidProxWeigandClass::HidProxWeigandClass() {
+HidProxWiegandClass::HidProxWiegandClass() {
     this->_readerCount = 0;
     this->_mallocSize = 0;
     this->_initialCapacity = sizeof(ProxReaderInfo);
 }
 
-void HidProxWeigandClass::setPosition(short position) {
+void HidProxWiegandClass::setPosition(short position) {
     this->_currentReader = this->_readers + position;
 }
 
-ProxReaderInfo* HidProxWeigandClass::getCurrentReader() {
+ProxReaderInfo* HidProxWiegandClass::getCurrentReader() {
     return this->_currentReader;
 }
 
-ProxReaderInfo* HidProxWeigandClass::addReader(short pinData0, short pinData1, void (*onCardRead)(ProxReaderInfo* reader)) {
+ProxReaderInfo* HidProxWiegandClass::addReader(short pinData0, short pinData1, void (*onCardRead)(ProxReaderInfo* reader)) {
     if ((SUPPORTED_READERS > 0) && ((this->_readerCount + 1) > SUPPORTED_READERS)) {
         // We can't add any more readers because it would exceed the max number
         // of supported readers.
@@ -61,7 +62,7 @@ ProxReaderInfo* HidProxWeigandClass::addReader(short pinData0, short pinData1, v
     this->setPosition(this->_readerCount);
     this->_currentReader->pinData0 = pinData0;
     this->_currentReader->pinData1 = pinData1;
-    this->_currentReader->weigandCounter = WEIGAND_WAIT_TIME;
+    this->_currentReader->wiegandCounter = WIEGAND_WAIT_TIME;
     this->_currentReader->onCardRead = onCardRead;
     pinMode(this->_currentReader->pinData0, INPUT);
     pinMode(this->_currentReader->pinData1, INPUT);
@@ -70,7 +71,7 @@ ProxReaderInfo* HidProxWeigandClass::addReader(short pinData0, short pinData1, v
     return this->_currentReader;
 }
 
-void HidProxWeigandClass::loop() {
+void HidProxWiegandClass::loop() {
     // Iterate over all of the registered readers and check to see if we've
     // gotten any card reads.
     for (this->_index = 0; this->_index < this->_readerCount; this->_index++) {
@@ -79,12 +80,12 @@ void HidProxWeigandClass::loop() {
         // Wait to make sure that there have been no more data pulses before
         // processing data.
         if (!this->_currentReader->flagDone) {
-            if (--this->_currentReader->weigandCounter == 0) {
+            if (--this->_currentReader->wiegandCounter == 0) {
                 this->_currentReader->flagDone = true;
             }
         }
 
-        // If we have bits and the weigand counter went out.
+        // If we have bits and the Wiegand counter went out.
         bool unsupported = false;
         if ((this->_currentReader->bitCount > 0) && (this->_currentReader->flagDone)) {
             uint8_t facStartBit = 0;
@@ -93,7 +94,7 @@ void HidProxWeigandClass::loop() {
             uint8_t cardStopBit = 0;
             if (this->_currentReader->bitCount == CARD_FORMAT_CORPORATE_1000) {
                 // 35bit HID Corporate 1000 format.
-                // Facility code is bits 2 to 14.
+                // Facility code is bits 3 to 14.
                 facStartBit = 2;
                 facStopBit = 14;
 
@@ -101,15 +102,25 @@ void HidProxWeigandClass::loop() {
                 cardStartBit = 14;
                 cardStopBit = 34;
             }
-            else if (this->_currentReader->bitCount == CARD_FORMAT_WEIGAND_26) {
-                // Standard 26bit weigand format.
+            else if (this->_currentReader->bitCount == CARD_FORMAT_WIEGAND_26) {
+                // Standard 26bit Wiegand format.
                 // Facility code is bits 2 to 9.
                 facStartBit = 1;
                 facStopBit = 9;
 
-                // Card code is bits 10 to 23;
+                // Card code is bits 10 to 25;
                 cardStartBit = 9;
                 cardStopBit = 25;
+            }
+            else if (this->_currentReader->bitCount == CARD_FORMAT_WIEGAND_32) {
+                // Standard 32bit Wiegand format.
+                // Facility code is bits 5 to 16.
+                facStartBit = 4;
+                facStopBit = 16;
+
+                // Card code is bits 17 to 32;
+                cardStartBit = 16;
+                cardStopBit = 32;
             }
             else {
                 // Unrecognized format.
@@ -150,4 +161,4 @@ void HidProxWeigandClass::loop() {
     }
 }
 
-HidProxWeigandClass HidProxWeigand;
+HidProxWiegandClass HidProxWiegand;

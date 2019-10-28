@@ -1,22 +1,24 @@
 /**
- * HidProxWeigand.h
- * Version 1.0a
+ * HidProxWiegand.h
+ * Version 1.0b
  * Author
  *  Cyrus Brunner
+ *  Joseph Selby
  *
  * This library provides a means of reading RFID cards (fobs) in both HID 35bit
- * Corporate 1000 format and 26bit Weigand format.
+ * Corporate 1000 format, 32bit Wiegand and 26bit Wiegand format.
  */
 
-#ifndef HidProxWeigand_h
-#define HidProxWeigand_h
+#ifndef HidProxWiegand_h
+#define HidProxWiegand_h
 
 #include <Arduino.h>
 
 #define MAX_READ_BITS 100             // Max number of read bits.
-#define WEIGAND_WAIT_TIME 3000        // Time to wait for another weigand pulse.
+#define WIEGAND_WAIT_TIME 3000        // Time to wait for another Wiegand pulse.
 #define CARD_FORMAT_CORPORATE_1000 35 // HID Corporate 100 card format (35bit).
-#define CARD_FORMAT_WEIGAND_26    26  // Standard 26bit Weigand format.
+#define CARD_FORMAT_WIEGAND_26    26  // Standard 26bit Wiegand format.
+#define CARD_FORMAT_WIEGAND_32    32  // Standard 32bit Wiegand format.
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
     // Mega 1280 and 2560 has 6 interrupts, thus can support 3 readers.
     #define SUPPORTED_READERS 3
@@ -41,7 +43,7 @@
  * @param int0Handler Callback method for handling interrupt for DATA 0.
  * @param int1Handler Callback method for handling interrupt for DATA 1.
  */
-void HidProxWeigand_AttachReaderInterrupts(uint8_t int0, uint8_t int1, void (*int0Handler)(), void (*int1Handler)());
+void HidProxWiegand_AttachReaderInterrupts(uint8_t int0, uint8_t int1, void (*int0Handler)(), void (*int1Handler)());
 
 /**
  * Proximity RFID info structure. This carries the necessary info needed for
@@ -87,7 +89,7 @@ struct ProxReaderInfo {
     /**
      * Countdown until it is assumed there are no more bits to read.
      */
-    uint16_t weigandCounter;
+    uint16_t wiegandCounter;
 
     /**
      * Buffer for storing the bits read.
@@ -105,7 +107,7 @@ struct ProxReaderInfo {
     void ISR_Data0() {
         bitCount++;
         flagDone = false;
-        weigandCounter = WEIGAND_WAIT_TIME;
+        wiegandCounter = WIEGAND_WAIT_TIME;
     }
 
     /**
@@ -115,7 +117,7 @@ struct ProxReaderInfo {
         databits[bitCount] = 1;
         bitCount++;
         flagDone = false;
-        weigandCounter = WEIGAND_WAIT_TIME;
+        wiegandCounter = WIEGAND_WAIT_TIME;
     }
 
     /**
@@ -128,7 +130,7 @@ struct ProxReaderInfo {
         facilityCode = 0;
         cardCode = 0;
         bitCount = 0;
-        weigandCounter = 0;
+        wiegandCounter = 0;
     }
 };
 
@@ -136,12 +138,12 @@ struct ProxReaderInfo {
  * HID card reader manager class. Provides facilities for adding card readers
  * and processing card reads.
  */
-class HidProxWeigandClass {
+class HidProxWiegandClass {
 public:
     /**
      * Default class constructor.
      */
-    HidProxWeigandClass();
+    HidProxWiegandClass();
 
     /**
      * Creates a reader instance and adds it to the system.
@@ -183,5 +185,5 @@ private:
 };
 
 // Global instance.
-extern HidProxWeigandClass HidProxWeigand;
+extern HidProxWiegandClass HidProxWiegand;
 #endif
