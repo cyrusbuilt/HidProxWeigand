@@ -1,7 +1,7 @@
 {
   "name": "HidProxWeigand",
   "keywords": "rfid, proximity, reader, fob",
-  "description": "An interrupt-driven HID proximity RFID reader library that supports 35bit Corporate 1000 format and 26bit weigand format.",
+  "description": "An interrupt-driven HID proximity RFID reader library that supports 35bit Corporate 1000 format and 26bit Wiegand format.",
   "authors": [
     {
       "name": "Cyrus Brunner",
