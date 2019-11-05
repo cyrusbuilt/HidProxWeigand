@@ -1,7 +1,5 @@
-==========================================================================
 # HidProxWeigand :: HID Proximity RFID reader library for Arduino
 [![Build Status](https://travis-ci.org/cyrusbuilt/HidProxWeigand.svg?branch=master)](https://travis-ci.org/cyrusbuilt/HidProxWeigand)
-==========================================================================
 
 ## LICENSE
 
@@ -53,9 +51,10 @@ you should call the appropriate handler method for the input. Also in setup(),
 call HidProxWeigand_AttachReaderInterrupts() to attach the declared interrupt
 handlers for both inputs needed by the reader. The following is the code for
 the basic example in the **examples** folder:
+
 ```cpp
 #include <Arduino.h>
-#include "HidProxWeigand.h"
+#include "HidProxWiegand.h"
 
 #define RDR_INT0 0         // Reader interrupt for DATA 0.
 #define RDR_INT1 1         // Reader interrupt for DATA 1.
@@ -104,7 +103,7 @@ void setup() {
     reader1 = HidProxWeigand.addReader(PIN_DATA0, PIN_DATA1, cardReadHandler);
 
     // Attach interrupt handlers for reader 1.
-    HidProxWeigand_AttachReaderInterrupts(RDR_INT0, RDR_INT1, handleInterrupt0, handleInterrupt1);
+    HidProxWiegand_AttachReaderInterrupts(RDR_INT0, RDR_INT1, handleInterrupt0, handleInterrupt1);
 }
 
 void loop() {
