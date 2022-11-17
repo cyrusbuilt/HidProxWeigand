@@ -36,7 +36,7 @@
 #endif
 
 /**
- * Helper method for attaching interrupt handlers for the two data lines the
+ * @brief Helper method for attaching interrupt handlers for the two data lines the
  * reader uses to transmit data pulses.
  * @param int0        Interrupt for DATA 0.
  * @param int1        Interrupt for DATA 1.
@@ -46,63 +46,63 @@
 void HidProxWiegand_AttachReaderInterrupts(uint8_t int0, uint8_t int1, void (*int0Handler)(), void (*int1Handler)());
 
 /**
- * Proximity RFID info structure. This carries the necessary info needed for
+ * @brief Proximity RFID info structure. This carries the necessary info needed for
  * each reader attached to the system and callback methods for updating the
  * necessary values.
  */
 struct ProxReaderInfo {
     /**
-     * The pin for data line 0.
+     * @brief The pin for data line 0.
      */
     short pinData0;
 
     /**
-     * The pin for data line 1.
+     * @brief The pin for data line 1.
      */
     short pinData1;
 
     /**
-     * Flag to indicate the read is done.
+     * @brief Flag to indicate the read is done.
      */
     bool flagDone;
 
     /**
-     * Flag to indicate that the card read is of an unsupported format.
+     * @brief Flag to indicate that the card read is of an unsupported format.
      */
     bool cardUnsupported;
 
     /**
-     * The facility code. Will be zero unless a valid code is read.
+     * @brief The facility code. Will be zero unless a valid code is read.
      */
     unsigned long facilityCode;
 
     /**
-     * The card code. Will be zero unless a valid code is read.
+     * @brief The card code. Will be zero unless a valid code is read.
      */
     unsigned long cardCode;
 
     /**
-     * The number of bits read.
+     * @brief The number of bits read.
      */
     uint8_t bitCount;
 
     /**
-     * Countdown until it is assumed there are no more bits to read.
+     * @brief Countdown until it is assumed there are no more bits to read.
      */
     uint16_t wiegandCounter;
 
     /**
-     * Buffer for storing the bits read.
+     * @brief Buffer for storing the bits read.
      */
     unsigned char databits[MAX_READ_BITS];
 
     /**
-     * Event callback method that fires when a card is read.
+     * @brief Event callback method that fires when a card is read.
      */
     void (*onCardRead)(ProxReaderInfo* reader);
 
     /**
-     * This should be called by an interrupt handler when DATA0 goes low (0 bit)
+     * @brief This should be called by an interrupt handler when DATA0 goes low (0 bit)
      */
     void ISR_Data0() {
         bitCount++;
@@ -111,7 +111,7 @@ struct ProxReaderInfo {
     }
 
     /**
-     * This should be called by an interrupt handler when DATA1 goes low (1 bit)
+     * @brief This should be called by an interrupt handler when DATA1 goes low (1 bit)
      */
     void ISR_Data1() {
         databits[bitCount] = 1;
@@ -121,7 +121,7 @@ struct ProxReaderInfo {
     }
 
     /**
-     * Default constructor. Sets default values.
+     * @brief Default constructor. Sets default values.
      */
     ProxReaderInfo() {
         onCardRead = NULL;
@@ -135,36 +135,36 @@ struct ProxReaderInfo {
 };
 
 /**
- * HID card reader manager class. Provides facilities for adding card readers
+ * @brief HID card reader manager class. Provides facilities for adding card readers
  * and processing card reads.
  */
 class HidProxWiegandClass {
 public:
     /**
-     * Default class constructor.
+     * @brief Default class constructor.
      */
     HidProxWiegandClass();
 
     /**
-     * Creates a reader instance and adds it to the system.
+     * @brief Creates a reader instance and adds it to the system.
      * @param pinData0 The DATA0 pin from the reader.
      * @param pinData1 The DATA1 pin from the reader.
      * @param onCardRead Callback method that fires when a card is read.
-     * @return A reference to a ProxReaderInfo representing the reader
+     * @return ProxReaderInfo A reference to a ProxReaderInfo representing the reader
      * that was added. Returns NULL if the reader could not be added due to
      * platform limitation.
      */
     ProxReaderInfo* addReader(short pinData0, short pinData1, void (*onCardRead)(ProxReaderInfo* reader));
 
     /**
-     * Processing loop. Checks the buffers for each attached reader and checks
+     * @brief Processing loop. Checks the buffers for each attached reader and checks
      * to see if any cards have been read. Should be called in your sketch's
      * main program loop() method.
      */
     void loop();
 
     /**
-     * Gets a reference to the currently active reader.
+     * @brief Gets a reference to the currently active reader.
      * @return A reference to the currently active reader.
      */
     ProxReaderInfo* getCurrentReader();
@@ -177,13 +177,15 @@ private:
     ProxReaderInfo* _currentReader;
 
     /**
-     * Sets the position in the reader array. This essentially selects the
+     * @brief Sets the position in the reader array. This essentially selects the
      * reader to process.
      * @param position The position to set.
      */
     void setPosition(short position);
 };
 
-// Global instance.
+/**
+ * @brief Global instance.
+ */
 extern HidProxWiegandClass HidProxWiegand;
 #endif
