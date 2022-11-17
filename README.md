@@ -1,5 +1,5 @@
 # HidProxWeigand :: HID Proximity RFID reader library for Arduino
-[![Build Status](https://travis-ci.org/cyrusbuilt/HidProxWeigand.svg?branch=master)](https://travis-ci.org/cyrusbuilt/HidProxWeigand)
+![Build Status](https://github.com/cyrusbuilt/HidProxWeigand/actions/workflows/ci.yml/badge.svg)
 
 ## LICENSE
 
