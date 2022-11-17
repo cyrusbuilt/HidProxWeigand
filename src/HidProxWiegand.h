@@ -1,6 +1,6 @@
 /**
  * HidProxWiegand.h
- * Version 1.0b
+ * Version 1.0.2
  * Author
  *  Cyrus Brunner
  *  Joseph Selby
