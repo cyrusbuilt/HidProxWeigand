@@ -67,3 +67,6 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+
+# Compiled documentation output
+docs/
