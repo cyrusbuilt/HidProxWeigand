@@ -5,11 +5,6 @@
  #include <Arduino.h>
  #include "HidProxWiegand.h"
 
- #define RDR_INT0 0         // Reader 1 interrupt for DATA 0.
- #define RDR_INT1 1         // Reader 1 interrupt for DATA 1.
- #define RDR_INT2 2         // Reader 2 interrupt for DATA 0.
- #define RDR_INT3 3         // Reader 2 interrupt for DATA 1.
-
  #define PIN_RDR1_DATA0 2        // The pin to use for reader 1, DATA 0.
  #define PIN_RDR1_DATA1 3        // The pin to use for reader 1, DATA 1.
  #define PIN_RDR2_DATA0 4        // The pin to use for reader 2, DATA 0.
@@ -104,8 +99,8 @@
      reader2 = HidProxWiegand.addReader(PIN_RDR2_DATA0, PIN_RDR2_DATA1, cardRead2Handler);
 
      // Attach interrupt handlers for readers 1 and 2.
-     HidProxWiegand_AttachReaderInterrupts(RDR_INT0, RDR_INT1, handleInterrupt0, handleInterrupt1);
-     HidProxWiegand_AttachReaderInterrupts(RDR_INT2, RDR_INT3, handleInterrupt2, handleInterrupt3);
+     HidProxWiegand_AttachReaderInterrupts(PIN_RDR1_DATA0, PIN_RDR1_DATA1, handleInterrupt0, handleInterrupt1);
+     HidProxWiegand_AttachReaderInterrupts(PIN_RDR2_DATA0, PIN_RDR2_DATA1, handleInterrupt2, handleInterrupt3);
 
      // Init reader 1 outputs.
      pinMode(PIN_RDR1_BUZZER, OUTPUT);

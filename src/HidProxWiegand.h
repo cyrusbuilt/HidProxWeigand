@@ -1,6 +1,6 @@
 /**
  * HidProxWiegand.h
- * Version 1.0.2
+ * Version 1.0.3
  * Author
  *  Cyrus Brunner
  *  Joseph Selby
@@ -38,12 +38,12 @@
 /**
  * @brief Helper method for attaching interrupt handlers for the two data lines the
  * reader uses to transmit data pulses.
- * @param int0        Interrupt for DATA 0.
- * @param int1        Interrupt for DATA 1.
+ * @param pinData0        Pin for DATA 0.
+ * @param pinData1        Pin for DATA 1.
  * @param int0Handler Callback method for handling interrupt for DATA 0.
  * @param int1Handler Callback method for handling interrupt for DATA 1.
  */
-void HidProxWiegand_AttachReaderInterrupts(uint8_t int0, uint8_t int1, void (*int0Handler)(), void (*int1Handler)());
+void HidProxWiegand_AttachReaderInterrupts(uint8_t pinData0, uint8_t pinData1, void (*int0Handler)(), void (*int1Handler)());
 
 /**
  * @brief Proximity RFID info structure. This carries the necessary info needed for

@@ -1,6 +1,6 @@
 /**
  * HidProxWiegand.cpp
- * Version 1.0.2
+ * Version 1.0.3
  * Author
  *  Cyrus Brunner
  *  Joseph Selby
@@ -11,9 +11,9 @@
 
 #include "HidProxWiegand.h"
 
-void HidProxWiegand_AttachReaderInterrupts(uint8_t int0, uint8_t int1, void (*int0Handler)(), void (*int1Handler)()) {
-    attachInterrupt(int0, int0Handler, FALLING);
-    attachInterrupt(int1, int1Handler, FALLING);
+void HidProxWiegand_AttachReaderInterrupts(uint8_t pinData0, uint8_t pinData1, void (*int0Handler)(), void (*int1Handler)()) {
+    attachInterrupt(digitalPinToInterrupt(pinData0), int0Handler, FALLING);
+    attachInterrupt(digitalPinToInterrupt(pinData1), int1Handler, FALLING);
 }
 
 HidProxWiegandClass::HidProxWiegandClass() {
