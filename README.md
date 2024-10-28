@@ -97,7 +97,7 @@ void setup() {
     }
 
     // Create the reader and attach it to the system.
-    reader1 = HidProxWeigand.addReader(PIN_DATA0, PIN_DATA1, cardReadHandler);
+    reader1 = HidProxWiegand.addReader(PIN_DATA0, PIN_DATA1, cardReadHandler);
 
     // Attach interrupt handlers for reader 1.
     HidProxWiegand_AttachReaderInterrupts(PIN_DATA0, PIN_DATA1, handleInterrupt0, handleInterrupt1);
@@ -105,7 +105,7 @@ void setup() {
 
 void loop() {
     // Process any cards that have been read.
-    HidProxWeigand.loop();
+    HidProxWiegand.loop();
 }
 ```
 
